@@ -1,4 +1,4 @@
-**
+/**
 * Package for calculate task.
 *
 * @author Roman Tsenov (mailto:roman.tsenov@gmail.com)
