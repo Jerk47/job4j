@@ -16,9 +16,4 @@ public class Board {
         }
         return screen.toString();
     }
-
-    public static void main(String[] arg) {
-        Board b = new Board();
-        System.out.println(b.paint(5, 4));
-    }
 }
