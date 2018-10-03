@@ -40,11 +40,11 @@ public class Item  {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(String id) {
-        this.id = id;
+       this.id = id;
     }
 
     public Item(String name, String desc) {

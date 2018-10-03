@@ -1,22 +1,29 @@
 package Tracker;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Random;
 
 public class Tracker {
     private final Item[] items = new Item[100];
     private int position = 0;
+    Item item;
     final Random random = new Random();
 
     public Item add(Item item) {
         item.setId(this.generateId());
-        this.items[this.position++] = item;
+        this.items[this.position] = item;
         position++;
         return item;
     }
 
     public void replace(String id, Item item) {
-        this.items[Integer.parseInt(id)] = item;
+        for (int i = 0; i <= this.items.length; i++) {
+            if (this.items[i].getId().equals(id)) {
+                this.items[i] = item;
+                break;
+            }
+        }
     }
 
     public Item[] delete(String id) {
@@ -27,37 +34,43 @@ public class Tracker {
     }
 
     public Item[] findAll() {
+        int count = 0;
         Item[] items2 = new Item[100];
         for (int i = 0; i < this.items.length; i++) {
-            int count = 0;
             if (this.items[i] != null) {
                 items2[count] = this.items[i];
                 count++;
             }
         }
-        return items2;
+        Item[] items3 = Arrays.copyOf(items2, count);
+
+        return items3;
     }
 
     public Item[] findByName(String key) {
         Item[] result = new Item[100];
         int count = 0;
-        for (int i = 0; i<this.items.length; i++) {
-            if (this.items[i].getName().equals(key)) {
-                result[count] = this.items[i];
+        for (int i = 0; i < this.items.length; i++) {
+            if (this.items[i] != null) {
+                if (this.items[i].getName().equals(key)) {
+                    result[count] = this.items[i];
+                }
                 count++;
             }
         }
-        return result;
+        Item[] resultArr = Arrays.copyOf(result, count - 1);
+        return resultArr;
     }
 
     public Item findById(String id) {
-    Item[] result = new Item[100];
-        for (int i = 0; i<this.items.length; i++) {
-        if (this.items[i].getId().equals(id)) {
-            result[0] = this.items[i];
+
+        for (int i = 0; i < this.items.length; i++) {
+            if (this.items[i].getId().equals(id)) {
+                item = this.items[i];
+                break;
+            }
         }
-    }
-        return result[0];
+        return item;
     }
 
     private String generateId() {
