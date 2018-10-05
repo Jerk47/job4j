@@ -1,6 +1,5 @@
 package Tracker;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -27,9 +26,13 @@ public class Tracker {
     }
 
     public Item[] delete(String id) {
-        Item[] items2;
-        items2 = Arrays.copyOf(items, items.length);
-        System.arraycopy(items2, Integer.parseInt(id) + 1, items, Integer.parseInt(id) - 1, items.length);
+        int i = Integer.parseInt(id);
+        if (i >= 0 && i < items.length) {
+            Item[] itemResult = new Item[items.length - 1];
+            System.arraycopy(items, 0, itemResult, 0, i);
+            System.arraycopy(items, i + 1, itemResult, i, items.length - i - 1);
+            return itemResult;
+        }
         return items;
     }
 
