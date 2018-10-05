@@ -1,6 +1,6 @@
 package Tracker;
 
-public class Item  {
+public class Item {
     private String name;
     private String desc;
     private long created;
@@ -44,7 +44,7 @@ public class Item  {
     }
 
     public void setId(String id) {
-       this.id = id;
+        this.id = id;
     }
 
     public Item(String name, String desc) {
@@ -57,5 +57,4 @@ public class Item  {
         this.desc = desc;
         this.created = created;
     }
-
 }

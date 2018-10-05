@@ -46,7 +46,6 @@ public class Tracker {
             }
         }
         Item[] items3 = Arrays.copyOf(items2, count);
-
         return items3;
     }
 
@@ -66,7 +65,6 @@ public class Tracker {
     }
 
     public Item findById(String id) {
-
         for (int i = 0; i < this.items.length; i++) {
             if (this.items[i].getId().equals(id)) {
                 item = this.items[i];
