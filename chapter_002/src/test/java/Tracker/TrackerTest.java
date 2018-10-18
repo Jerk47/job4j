@@ -2,6 +2,9 @@ package Tracker;
 
 import org.junit.Test;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -77,22 +80,18 @@ public class TrackerTest {
     public void deleteItem() {
         Tracker tracker = new Tracker();
         Item item1 = new Item("test1", "test1Dsc", 123L);
-        Item item2 = new Item("test1", "test2Dsc", 124L);
-        Item item3 = new Item("test1", "test3Dsc", 125L);
-        Item item4 = new Item("test2", "test4Dsc", 126L);
+        Item item2 = new Item("test2", "test2Dsc", 124L);
+        Item item3 = new Item("test3", "test3Dsc", 125L);
+        Item item4 = new Item("test4", "test4Dsc", 126L);
         tracker.add(item1);
         tracker.add(item2);
         tracker.add(item3);
         tracker.add(item4);
-        item1.setId("1");
-        item2.setId("2");
-        item3.setId("3");
-        item4.setId("4");
-        Item[] itemArrSum = tracker.delete("2");
-        Item[] itemExpected = new Item[99];
-        itemExpected[0] = item1;
-        itemExpected[1] = item2;
-        itemExpected[2] = item4;
-        assertThat(itemExpected, is(itemArrSum));
+        item1.setId("0");
+        item2.setId("1");
+        item3.setId("2");
+        item4.setId("3");
+        tracker.delete("2");
+        assertThat(tracker.getItems()[2].getId(), is("3"));
     }
 }
