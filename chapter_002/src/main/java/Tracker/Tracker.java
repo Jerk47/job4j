@@ -20,23 +20,29 @@ public class Tracker {
     }
 
     public boolean replace(String id, Item item) {
+        boolean checkReplace = false;
         for (int i = 0; i <= position; i++) {
             if (this.items[i].getId().equals(id)) {
                 this.items[i] = item;
                 item.setId(id);
+                checkReplace = true;
                 break;
             }
         }
+        return checkReplace;
     }
 
     public boolean delete(String id) {
+        boolean checkDelete = false;
         for (int j = 0; j < position; j++) {
             if (this.items[j].getId().equals(id)) {
                 System.arraycopy(items, j + 1, items, j, items.length - 1 - j);
                 position--;
+                checkDelete = true;
                 break;
             }
         }
+        return checkDelete;
     }
 
     public Item[] findAll() {
