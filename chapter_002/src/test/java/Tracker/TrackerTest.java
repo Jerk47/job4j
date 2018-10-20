@@ -51,7 +51,7 @@ public class TrackerTest {
         Item item1 = new Item("test1", "test1Dsc", 123L);
         Item item2 = new Item("test1", "test2Dsc", 124L);
         Item item3 = new Item("test1", "test3Dsc", 125L);
-        Item item4 = new Item("test2", "test4Dsc", 126L);
+        Item item4 = new Item("test4", "test4Dsc", 126L);
         tracker.add(item1);
         tracker.add(item2);
         tracker.add(item3);

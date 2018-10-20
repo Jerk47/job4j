@@ -58,7 +58,7 @@ public class Tracker {
                     result[count++] = this.items[i];
                 }
             }
-        Item[] resultArr = Arrays.copyOf(result, count - 1);
+        Item[] resultArr = Arrays.copyOf(result, count);
         return resultArr;
     }
 
