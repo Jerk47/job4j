@@ -1,4 +1,4 @@
-package Profession;
+package profession;
 
 public class Profession {
     String name;

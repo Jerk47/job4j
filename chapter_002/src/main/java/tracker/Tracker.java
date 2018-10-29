@@ -1,4 +1,4 @@
-package Tracker;
+package tracker;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -54,10 +54,10 @@ public class Tracker {
         int count = 0;
         for (int i = 0; i < position; i++) {
             if (this.items[i] != null
-                && this.items[i].getName().equals(key)) {
-                    result[count++] = this.items[i];
-                }
+                    && this.items[i].getName().equals(key)) {
+                result[count++] = this.items[i];
             }
+        }
         Item[] resultArr = Arrays.copyOf(result, count);
         return resultArr;
     }

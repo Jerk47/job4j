@@ -1,4 +1,4 @@
-package Profession;
+package profession;
 
 public class Doctor extends Profession {
     public Doctor(String name, String profession) {

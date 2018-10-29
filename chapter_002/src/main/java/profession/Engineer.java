@@ -1,4 +1,4 @@
-package Profession;
+package profession;
 
 public class Engineer extends Profession {
     public Engineer(String name, String profession) {
