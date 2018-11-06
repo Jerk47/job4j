@@ -3,7 +3,6 @@ package tracker;
 import java.util.Arrays;
 
 public class StartUI {
-
     private static final String ADD = "0";
     private static final String SHOW_ALL = "1";
     private static final String EDIT = "2";
@@ -15,13 +14,13 @@ public class StartUI {
     private final Input input;
     private final Tracker tracker;
 
-    public StartUI(Input input, Tracker tracker, Item item) {
+    private StartUI(Input input, Tracker tracker, Item item) {
         this.input = input;
         this.tracker = tracker;
-        this.item = item;
+        StartUI.item = item;
     }
 
-    public void init() {
+    private void init() {
         boolean exit = false;
         while (!exit) {
             this.showMenu();
@@ -29,18 +28,18 @@ public class StartUI {
             if (ADD.equals(answer)) {
                 this.createItem();
             } else if (SHOW_ALL.equals(answer)) {
-                for (Item item : this.tracker.findAll()) {
+                for (Item item : tracker.findAll()) {
                     System.out.println(item.getName());
                 }
             } else if (EDIT.equals(answer)) {
                 String id = this.input.ask("Введите id заявки");
                 tracker.replace(id, new Item("Ремонт", "Покраска стен"));
             } else if (DELETE.equals(answer)) {
-                String id = this.input.ask("Введите id заявки для удаления");
-                tracker.delete(id);
+                String idDelete = this.input.ask("Введите id заявки для удаления");
+                tracker.delete(idDelete);
             } else if (FIND_BY_ID.equals(answer)) {
-                String id = this.input.ask("Введите id заявки");
-                System.out.println(this.tracker.findById(id).getName());
+                String idItem = this.input.ask("Введите id заявки");
+                System.out.println(this.tracker.findById(idItem).getName());
             } else if (FIND_BY_NAME.equals(answer)) {
                 String nameItem = this.input.ask("Введите имя для поиска заявки.");
                 System.out.println(Arrays.toString(tracker.findByName(nameItem)));
