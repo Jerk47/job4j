@@ -1,5 +1,7 @@
 package tracker;
 
+import java.util.Arrays;
+
 public class StartUI {
 
     private static final String ADD = "0";
@@ -34,12 +36,14 @@ public class StartUI {
                 String id = this.input.ask("Введите id заявки");
                 tracker.replace(id, new Item("Ремонт", "Покраска стен"));
             } else if (DELETE.equals(answer)) {
-                tracker.delete(item.getId());
+                String id = this.input.ask("Введите id заявки для удаления");
+                tracker.delete(id);
             } else if (FIND_BY_ID.equals(answer)) {
                 String id = this.input.ask("Введите id заявки");
                 System.out.println(this.tracker.findById(id).getName());
             } else if (FIND_BY_NAME.equals(answer)) {
-                this.tracker.findByName(item.getName());
+                String nameItem = this.input.ask("Введите имя для поиска заявки.");
+                System.out.println(Arrays.toString(tracker.findByName(nameItem)));
             } else if (EXIT.equals(answer)) {
                 exit = true;
             }
