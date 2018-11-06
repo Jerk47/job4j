@@ -27,21 +27,21 @@ public class StartUI {
             if (ADD.equals(answer)) {
                 this.createItem();
             } else if (SHOW_ALL.equals(answer)) {
-               for (Item item : this.tracker.findAll()) {
-                   System.out.println(item.getName());
-               }
+                for (Item item : this.tracker.findAll()) {
+                    System.out.println(item.getName());
+                }
             } else if (EDIT.equals(answer)) {
                 String id = this.input.ask("Введите id заявки");
-                tracker.replace(id, item);
+                tracker.replace(id, new Item("Ремонт", "Покраска стен"));
             } else if (DELETE.equals(answer)) {
-                this.tracker.delete(item.getId());
+                tracker.delete(item.getId());
             } else if (FIND_BY_ID.equals(answer)) {
                 String id = this.input.ask("Введите id заявки");
                 System.out.println(this.tracker.findById(id).getName());
             } else if (FIND_BY_NAME.equals(answer)) {
                 this.tracker.findByName(item.getName());
             } else if (EXIT.equals(answer)) {
-                    exit = true;
+                exit = true;
             }
         }
     }
