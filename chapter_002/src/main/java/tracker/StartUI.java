@@ -10,14 +10,12 @@ public class StartUI {
     private static final String FIND_BY_ID = "4";
     private static final String FIND_BY_NAME = "5";
     private static final String EXIT = "6";
-    private static Item item;
     private final Input input;
     private final Tracker tracker;
 
-    private StartUI(Input input, Tracker tracker, Item item) {
+    private StartUI(Input input, Tracker tracker) {
         this.input = input;
         this.tracker = tracker;
-        StartUI.item = item;
     }
 
     private void init() {
@@ -28,21 +26,15 @@ public class StartUI {
             if (ADD.equals(answer)) {
                 this.createItem();
             } else if (SHOW_ALL.equals(answer)) {
-                for (Item item : tracker.findAll()) {
-                    System.out.println(item.getName());
-                }
+                showAllItem();
             } else if (EDIT.equals(answer)) {
-                String id = this.input.ask("Введите id заявки");
-                tracker.replace(id, new Item("Ремонт", "Покраска стен"));
+                editItem();
             } else if (DELETE.equals(answer)) {
-                String idDelete = this.input.ask("Введите id заявки для удаления");
-                tracker.delete(idDelete);
+                deleteItem();
             } else if (FIND_BY_ID.equals(answer)) {
-                String idItem = this.input.ask("Введите id заявки");
-                System.out.println(this.tracker.findById(idItem).getName());
+                findItemById();
             } else if (FIND_BY_NAME.equals(answer)) {
-                String nameItem = this.input.ask("Введите имя для поиска заявки.");
-                System.out.println(Arrays.toString(tracker.findByName(nameItem)));
+                findItemByName();
             } else if (EXIT.equals(answer)) {
                 exit = true;
             }
@@ -58,6 +50,33 @@ public class StartUI {
         System.out.println("------------ Новая заявка с getId : " + item.getId());
     }
 
+    private void showAllItem() {
+        for (Item item : tracker.findAll()) {
+            System.out.println(item.getName());
+        }
+    }
+
+    private void editItem() {
+        String id = this.input.ask("Введите id заявки");
+        tracker.replace(id, new Item("Ремонт", "Покраска стен"));
+    }
+
+    private void deleteItem() {
+        String idDelete = this.input.ask("Введите id заявки для удаления");
+        tracker.delete(idDelete);
+    }
+
+    private void findItemById() {
+        String idItem = this.input.ask("Введите id заявки");
+        System.out.println(this.tracker.findById(idItem).getName());
+    }
+
+    private void findItemByName() {
+        String nameItem = this.input.ask("Введите имя для поиска заявки.");
+        System.out.println(Arrays.toString(tracker.findByName(nameItem)));
+    }
+
+
     private void showMenu() {
         System.out.println("Меню.");
         System.out.println("0. Создать новую заявку.");
@@ -70,6 +89,6 @@ public class StartUI {
     }
 
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker(), item).init();
+        new StartUI(new ConsoleInput(), new Tracker()).init();
     }
 }
