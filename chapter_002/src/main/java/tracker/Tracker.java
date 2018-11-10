@@ -27,6 +27,8 @@ public class Tracker {
                 item.setId(id);
                 checkReplace = true;
                 break;
+            } else {
+                break;
             }
         }
         return checkReplace;

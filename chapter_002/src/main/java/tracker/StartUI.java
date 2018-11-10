@@ -57,13 +57,28 @@ public class StartUI {
     }
 
     private void editItem() {
+        boolean finallyEdit;
         String id = this.input.ask("Введите id заявки");
-        tracker.replace(id, new Item("Ремонт", "Покраска стен"));
+        String nameQuestion = this.input.ask("Введите новое название заявки.");
+        String taskDescription = this.input.ask("Введите описание заявки.");
+        finallyEdit = tracker.replace(id, new Item(nameQuestion, taskDescription));
+        if (finallyEdit) {
+            resultEdit("Заявка успешно обновлена.");
+        } else {
+            resultEdit("Заявка не найдена.");
+        }
     }
 
-    private void deleteItem() {
+    private boolean deleteItem() {
+        boolean finallyDelete;
         String idDelete = this.input.ask("Введите id заявки для удаления");
-        tracker.delete(idDelete);
+        finallyDelete = tracker.delete(idDelete);
+        if (finallyDelete) {
+            resultDelete("Заявка успешно удалена.");
+        } else {
+            resultDelete("Не удалось найти заявку.");
+        }
+        return finallyDelete;
     }
 
     private void findItemById() {
@@ -86,6 +101,14 @@ public class StartUI {
         System.out.println("4. Найти заявку по id");
         System.out.println("5. Найти заявку по имени");
         System.out.println("6. Выйти из программы");
+    }
+
+    private void resultDelete(String result) {
+        System.out.println(result);
+    }
+
+    private void resultEdit(String result) {
+        System.out.println(result);
     }
 
     public static void main(String[] args) {
