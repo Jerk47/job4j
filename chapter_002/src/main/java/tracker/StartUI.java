@@ -83,7 +83,7 @@ public class StartUI {
 
     private void findItemById() {
         String idItem = this.input.ask("Введите id заявки");
-        System.out.println(this.tracker.findById(idItem).getName());
+        System.out.println(tracker.findById(idItem));
     }
 
     private void findItemByName() {

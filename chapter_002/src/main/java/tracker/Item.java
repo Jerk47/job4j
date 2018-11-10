@@ -57,4 +57,8 @@ public class Item {
         this.desc = desc;
         this.created = created;
     }
+
+    public String toString() {
+        return getName();
+    }
 }
