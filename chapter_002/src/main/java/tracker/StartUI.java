@@ -13,12 +13,12 @@ public class StartUI {
     private final Input input;
     private final Tracker tracker;
 
-    private StartUI(Input input, Tracker tracker) {
+    public StartUI(Input input, Tracker tracker) {
         this.input = input;
         this.tracker = tracker;
     }
 
-    private void init() {
+    public void init() {
         boolean exit = false;
         while (!exit) {
             this.showMenu();
