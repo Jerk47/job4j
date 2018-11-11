@@ -7,7 +7,7 @@ public class Paint {
         this.shape = shape;
     }
 
-    public String executeStrategy(){
+    public String executeShape() {
         return shape.draw();
     }
 }
