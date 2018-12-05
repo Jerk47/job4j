@@ -14,7 +14,7 @@ public class PaintTest {
         PrintStream stdout = System.out;
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
-        new Paint(new Square()).executeShape();
+        System.out.println(new Paint(new Square()).executeShape());
         assertThat(new String(out.toByteArray()), is(new StringBuilder()
                         .append("+ + + +\n")
                         .append("+     +\n")
