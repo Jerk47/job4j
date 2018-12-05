@@ -7,12 +7,13 @@ import static org.junit.Assert.assertThat;
 
 public class TriangleTest {
     @Test
-    public void whenDrawSquare() {
+    public void whenDrawTriangle() {
         Triangle triangle = new Triangle();
         assertThat(triangle.draw(), is(new StringBuilder()
                 .append("  +\n")
                 .append(" +++\n")
-                .append("++++++\n").toString())
+                .append("++++++\n")
+                .append(System.lineSeparator()).toString())
         );
     }
 }
