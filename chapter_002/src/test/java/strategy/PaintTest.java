@@ -41,8 +41,6 @@ public class PaintTest {
 
     @Test
     public void whenDrawTriangle() {
-        PrintStream stdout = System.out;
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
         new Paint().draw(new Triangle());
         assertThat(new String(out.toByteArray()), is(new StringBuilder()
@@ -53,6 +51,5 @@ public class PaintTest {
                         .toString()
                 )
         );
-        System.setOut(stdout);
     }
 }
