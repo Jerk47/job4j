@@ -11,8 +11,8 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class PaintTest {
-    PrintStream stdout = System.out;
-    ByteArrayOutputStream out = new ByteArrayOutputStream();
+    private PrintStream stdout = System.out;
+    private ByteArrayOutputStream out = new ByteArrayOutputStream();
 
     @Before
     public void loadOutput() {
@@ -28,15 +28,17 @@ public class PaintTest {
     public void whenDrawSquare() {
         new Paint().draw(new Square());
         assertThat(new String(out.toByteArray()), is(new StringBuilder()
-                        .append("+ + + +\n")
-                        .append("+     +\n")
-                        .append("+     +\n")
-                        .append("+ + + +\n")
+                        .append("+ + + +")
+                        .append(System.lineSeparator())
+                        .append("+     +")
+                        .append(System.lineSeparator())
+                        .append("+     +")
+                        .append(System.lineSeparator())
+                        .append("+ + + +")
                         .append(System.lineSeparator())
                         .toString()
                 )
         );
-
     }
 
     @Test
@@ -44,9 +46,11 @@ public class PaintTest {
         System.setOut(new PrintStream(out));
         new Paint().draw(new Triangle());
         assertThat(new String(out.toByteArray()), is(new StringBuilder()
-                        .append("  +\n")
-                        .append(" +++\n")
-                        .append("++++++\n")
+                        .append("  +")
+                        .append(System.lineSeparator())
+                        .append(" +++")
+                        .append(System.lineSeparator())
+                        .append("++++++")
                         .append(System.lineSeparator())
                         .toString()
                 )
