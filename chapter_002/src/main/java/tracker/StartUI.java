@@ -1,6 +1,7 @@
 package tracker;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class StartUI {
     private static final String ADD = "0";
@@ -27,6 +28,7 @@ public class StartUI {
                 this.createItem();
             } else if (SHOW_ALL.equals(answer)) {
                 showAllItem();
+                exit = true;
             } else if (EDIT.equals(answer)) {
                 editItem();
             } else if (DELETE.equals(answer)) {
