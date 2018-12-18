@@ -107,12 +107,15 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
+            boolean finallyEdit;
             String id = input.ask("Введите id заявки");
-            if (tracker.findById(id) == null) {
-                System.out.println("Заявки с таким id не существует");
+            String nameQuestion = input.ask("Введите новое название заявки.");
+            String taskDescription =  input.ask("Введите описание заявки.");
+            finallyEdit = tracker.replace(id, new Item(nameQuestion, taskDescription));
+            if (finallyEdit) {
+                System.out.println("Заявка успешно обновлена.");
             } else {
-                input.ask("Введите новое название заявки.");
-                input.ask("Введите описание заявки.");
+                System.out.println("Заявка не найдена.");
             }
         }
 
@@ -134,8 +137,12 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
+            boolean result;
             String idDelete = input.ask("Введите id заявки для удаления");
-            tracker.delete(idDelete);
+            result = tracker.delete(idDelete);
+            if (result) {
+                System.out.println("Заявка успешно удалена.");
+            }
         }
 
         @Override
