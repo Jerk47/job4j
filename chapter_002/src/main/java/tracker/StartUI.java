@@ -21,12 +21,15 @@ public class StartUI {
         }
         do {
             menu.show();
-            int key = Integer.valueOf(input.ask("select: "));
-            menu.select(key);
+            try {
+                menu.select(input.ask("select: ", range));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } while (!"y".equals(this.input.ask("Exit?(y): ")));
     }
 
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(), new Tracker()).init();
     }
 }
