@@ -26,17 +26,22 @@ public class StartUI {
             String answer = this.input.ask("Пожалуйста, выберите пункт меню.");
             if (ADD.equals(answer)) {
                 this.createItem();
+                exit = true;
             } else if (SHOW_ALL.equals(answer)) {
                 showAllItem();
                 exit = true;
             } else if (EDIT.equals(answer)) {
                 editItem();
+                exit = true;
             } else if (DELETE.equals(answer)) {
                 deleteItem();
+                exit = true;
             } else if (FIND_BY_ID.equals(answer)) {
                 findItemById();
+                exit = true;
             } else if (FIND_BY_NAME.equals(answer)) {
                 findItemByName();
+                exit = true;
             } else if (EXIT.equals(answer)) {
                 exit = true;
             }
@@ -49,7 +54,7 @@ public class StartUI {
         String desc = this.input.ask("Введите описание заявки :");
         Item item = new Item(name, desc);
         this.tracker.add(item);
-        System.out.println("------------ Новая заявка с getId : " + item.getId());
+        System.out.println("------------ Новая заявка с id: " + item.getId());
     }
 
     private void showAllItem() {
