@@ -16,6 +16,14 @@ public class StartUITest {
     private Item item;
     private PrintStream stdout = System.out;
     private ByteArrayOutputStream out = new ByteArrayOutputStream();
+    private static final String MENU = "Меню." +
+            System.lineSeparator() + "0. Создать новую заявку." +
+            System.lineSeparator() + "1. Показать все заявки." +
+            System.lineSeparator() + "2. Редактировать заявку." +
+            System.lineSeparator() + "3. Удалить заявку" +
+            System.lineSeparator() + "4. Найти заявку по id" +
+            System.lineSeparator() + "5. Найти заявку по имени" +
+            System.lineSeparator() + "6. Выйти из программы";
 
     @Before
     public void loadOutput() {
@@ -39,14 +47,26 @@ public class StartUITest {
     public void whenUpdateThenTrackerHasUpdatedValue() {
         Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "6"});
         new StartUI(input, tracker).init();
-        assertThat(tracker.findById(item.getId()).getName(), is("test replace"));
+        String result = new StringBuilder()
+                .append(MENU)
+                .append(System.lineSeparator())
+                .append("Заявка успешно обновлена.")
+                .append(System.lineSeparator())
+                .toString();
+        assertThat(new String(out.toByteArray()), is(result));
     }
 
     @Test
     public void whenDeleteItemThenTrackerDoesNotHaveItem() {
         Input input = new StubInput(new String[]{"3", item.getId(), "6"});
         new StartUI(input, tracker).init();
-        assertThat(tracker.delete(item.getId()), is(false));
+        String result = new StringBuilder()
+                .append(MENU)
+                .append(System.lineSeparator())
+                .append("Заявка успешно удалена.")
+                .append(System.lineSeparator())
+                .toString();
+        assertThat(new String(out.toByteArray()), is(result));
     }
 
     @Test
@@ -54,14 +74,26 @@ public class StartUITest {
 
         Input input = new StubInput(new String[]{"4", item.getId(), "6"});
         new StartUI(input, tracker).init();
-        assertThat(tracker.findById(item.getId()).getId(), is(item.getId()));
+        String result = new StringBuilder()
+                .append(MENU)
+                .append(System.lineSeparator())
+                .append(item.getName())
+                .append(System.lineSeparator())
+                .toString();
+        assertThat(new String(out.toByteArray()), is(result));
     }
 
     @Test
     public void whenSearchItemByNameThenTrackerShowSameItem() {
         Input input = new StubInput(new String[]{"5", item.getName(), "6"});
         new StartUI(input, tracker).init();
-        assertThat(tracker.findByName(item.getName())[0].toString(), is("test name"));
+        String result = new StringBuilder()
+                .append(MENU)
+                .append(System.lineSeparator())
+                .append("[test name]")
+                .append(System.lineSeparator())
+                .toString();
+        assertThat(new String(out.toByteArray()), is(result));
     }
 
     @Test
@@ -71,21 +103,7 @@ public class StartUITest {
         Input input = new StubInput(new String[]{"1", "6"});
         new StartUI(input, tracker).init();
         String result = new StringBuilder()
-                .append("Меню.")
-                .append(System.lineSeparator())
-                .append("0. Создать новую заявку.")
-                .append(System.lineSeparator())
-                .append("1. Показать все заявки.")
-                .append(System.lineSeparator())
-                .append("2. Редактировать заявку.")
-                .append(System.lineSeparator())
-                .append("3. Удалить заявку")
-                .append(System.lineSeparator())
-                .append("4. Найти заявку по id")
-                .append(System.lineSeparator())
-                .append("5. Найти заявку по имени")
-                .append(System.lineSeparator())
-                .append("6. Выйти из программы")
+                .append(MENU)
                 .append(System.lineSeparator())
                 .append("test name")
                 .append(System.lineSeparator())
