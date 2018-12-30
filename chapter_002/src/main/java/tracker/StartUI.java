@@ -1,11 +1,9 @@
 package tracker;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class StartUI {
     private final Input input;
     private final Tracker tracker;
+
 
     public StartUI(Input input, Tracker tracker) {
         this.input = input;
@@ -14,15 +12,15 @@ public class StartUI {
 
     public void init() {
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
-        List<Integer> range = new ArrayList<>();
         menu.fillActions();
+        int[] ranges = new int[menu.getActionsLentgh()];
         for (int i = 0; i < menu.getActionsLentgh(); i++) {
-            range.add(i);
+            ranges[i] = i;
         }
         do {
             menu.show();
             try {
-                menu.select(input.ask("select: ", range));
+                menu.select(input.ask("select: ", ranges));
             } catch (Exception e) {
                 e.printStackTrace();
             }
