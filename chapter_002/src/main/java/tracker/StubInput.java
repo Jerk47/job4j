@@ -1,7 +1,5 @@
 package tracker;
 
-import java.util.List;
-
 public class StubInput implements Input {
     private final String[] answers;
     private int position = 0;
@@ -16,8 +14,7 @@ public class StubInput implements Input {
     }
 
     @Override
-    public int ask(String question, int[] range) throws Exception {
-        //throw new UnsupportedOperationException("Unsupported operation");
+    public int ask(String question, int[] range) {
         return -1;
     }
 
