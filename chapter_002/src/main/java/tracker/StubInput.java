@@ -23,12 +23,11 @@ public class StubInput implements Input {
                 exists = true;
             }
         }
-        if (exists) {
-            return key;
-        } else {
+        if (!exists) {
             throw new MenuOutException("out of menu range");
         }
-
+        return key;
     }
 }
+
 
