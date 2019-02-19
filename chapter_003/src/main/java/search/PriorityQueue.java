@@ -21,17 +21,7 @@ public class PriorityQueue {
         }
     }
 
-
     public Task take() {
         return this.tasks.poll();
-    }
-
-    public static void main(String[] args) {
-        PriorityQueue pr = new PriorityQueue();
-        pr.put(new Task("low", 5));
-        pr.put(new Task("urgent", 1));
-        pr.put(new Task("middle", 3));
-        pr.put(new Task("lowr", 5));
-        System.out.println(pr.tasks.get(1).getPriority());
     }
 }
