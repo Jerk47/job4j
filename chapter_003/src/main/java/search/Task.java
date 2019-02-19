@@ -1,6 +1,6 @@
 package search;
 
-public class Task implements Comparable<Task> {
+public class Task {
     private String desc;
     private int priority;
 
@@ -15,15 +15,5 @@ public class Task implements Comparable<Task> {
 
     public int getPriority() {
         return priority;
-    }
-
-
-    @Override
-    public int compareTo(Task o) {
-        if (priority != o.priority) {
-            return Integer.compare(priority, o.priority);
-        } else {
-            return 0;
-        }
     }
 }

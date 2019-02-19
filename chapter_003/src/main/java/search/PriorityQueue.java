@@ -3,13 +3,17 @@ package search;
 import java.util.*;
 
 public class PriorityQueue {
-    private Queue<Task> queue = new java.util.PriorityQueue<>();
+    private LinkedList<Task> tasks = new LinkedList<>();
 
     public void put(Task task) {
-        queue.add(task);
+        if ((tasks.size() != 0) && tasks.getFirst().getPriority() > task.getPriority()) {
+            tasks.add(0, task);
+        } else {
+            tasks.add(task);
+        }
     }
 
     public Task take() {
-        return this.queue.poll();
+        return this.tasks.poll();
     }
 }
