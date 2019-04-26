@@ -8,12 +8,6 @@ public class ConvertList2Array {
         int[][] array = new int[rows][cells];
         int cellsCount = 0;
         int rowsCount = 0;
-        int listSize = list.size();
-        if (listSize % rows != 0) {
-            for (int j = 0; j < listSize / rows; j++) {
-                list.add(0);
-            }
-        }
         for (Integer i : list
         ) {
             if (cellsCount < rows) {
