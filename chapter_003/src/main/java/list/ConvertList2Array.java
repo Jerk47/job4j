@@ -1,6 +1,7 @@
 package list;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ConvertList2Array {
@@ -26,7 +27,13 @@ public class ConvertList2Array {
 
     public List<Integer> convert(List<int[]> list) {
         List<Integer> result = new ArrayList<>();
-
+        Iterator<int[]> iter = list.iterator();
+        while (iter.hasNext()) {
+            for (int i : iter.next()) {
+                result.add(i);
+            }
+        }
+        return result;
     }
 }
 
