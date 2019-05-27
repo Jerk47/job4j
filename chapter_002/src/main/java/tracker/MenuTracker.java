@@ -159,7 +159,7 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             String nameItem = input.ask("Введите имя для поиска заявки.");
-            System.out.println(Arrays.toString(tracker.findByName(nameItem)));
+            System.out.println(tracker.findByName(nameItem));
         }
 
     }
