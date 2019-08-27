@@ -22,8 +22,7 @@ public class Tracker {
         boolean checkReplace = false;
         for (int i = 0; i <= position; i++) {
             if (this.items.get(i).getId().equals(id)) {
-                this.items.remove(i);
-                this.items.add(i, item);
+                this.items.set(i, item);
                 item.setId(id);
                 checkReplace = true;
                 break;
