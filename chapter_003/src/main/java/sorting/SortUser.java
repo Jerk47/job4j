@@ -3,7 +3,7 @@ package sorting;
 import java.util.*;
 
 public class SortUser {
-    static class User implements  Comparable<User>{
+    static class User implements Comparable<User> {
         private final String age;
         private final String name;
 
@@ -53,21 +53,5 @@ public class SortUser {
             }
         });
         return users;
-    }
-
-    public static void main(String[] args) {
-
-        SortUser su = new SortUser();
-        List<User> users = new ArrayList<User>();
-        List<User> resultLIst = new ArrayList<>();
-        users.add(new User("Sergey", "25"));
-        users.add(new User("Ivan", "30"));
-        users.add(new User("Sergey", "20"));
-        users.add(new User("Ivan", "25"));
-        resultLIst = su.sortNameLength(users);
-        for (User i : resultLIst) {
-            System.out.println(i);
-        }
-
     }
 }
