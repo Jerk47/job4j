@@ -35,7 +35,7 @@ public class SortUser {
         Collections.sort(users, new Comparator<User>() {
             @Override
             public int compare(User user1, User user2) {
-                return user1.name.length() > user2.name.length() ? 1 : user1.name.length() < user2.name.length() ? -1 : 0;
+                return Integer.compare(user1.name.length(), user2.name.length());
             }
         });
         return users;
@@ -47,11 +47,12 @@ public class SortUser {
             public int compare(User user1, User user2) {
                 int name = user1.name.compareTo(user2.name);
                 if (name == 0) {
-                    return name;
+                    return Integer.compare(user1.age.length(), user2.age.length());
                 }
-                return user1.age.length() > user2.age.length() ? 1 : user1.age.length() < user2.age.length() ? 1 : 0;
+               return name;
             }
         });
         return users;
     }
 }
+
