@@ -3,6 +3,7 @@ package sorting;
 import java.util.*;
 
 public class SortUser {
+
     static class User implements Comparable<User> {
         private final String age;
         private final String name;

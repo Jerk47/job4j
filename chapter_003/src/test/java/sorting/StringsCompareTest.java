@@ -1,19 +1,6 @@
-package ru.job4j.comparator;
-
-import java.util.Comparator;
-
-
-public class ListCompare implements Comparator<String> {
-    @Override
-    public int compare(String left, String right) {
-        return 0;
-    }
-}
-
-И давайте напишем тест.
+package sorting;
 
 import org.junit.Test;
-
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.lessThan;
@@ -70,3 +57,4 @@ public class StringsCompareTest {
         assertThat(rst, lessThan(0));
     }
 }
+
