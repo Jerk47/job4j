@@ -39,10 +39,10 @@ public class SortUserTest {
         resultList.add(new SortUser.User("Sergey", "20"));
         SortUser sortUser = new SortUser();
         sortUser.sortNameLength(users);
-        Assert.assertThat((users.get(0).compareTo(resultList.get(0))), is (0));
-        Assert.assertThat((users.get(1).compareTo(resultList.get(1))), is (0));
-        Assert.assertThat((users.get(2).compareTo(resultList.get(2))), is (0));
-        Assert.assertThat((users.get(3).compareTo(resultList.get(3))), is (0));
+        Assert.assertThat((users.get(0).compareTo(resultList.get(0))), is(0));
+        Assert.assertThat((users.get(1).compareTo(resultList.get(1))), is(0));
+        Assert.assertThat((users.get(2).compareTo(resultList.get(2))), is(0));
+        Assert.assertThat((users.get(3).compareTo(resultList.get(3))), is(0));
     }
 
     @Test
@@ -59,10 +59,10 @@ public class SortUserTest {
         resultList.add(new SortUser.User("Sergey", "25"));
         SortUser sortUser = new SortUser();
         sortUser.sortByAllField(users);
-        Assert.assertThat((users.get(0).compareTo(resultList.get(0))), is (0));
-        Assert.assertThat((users.get(1).compareTo(resultList.get(1))), is (0));
-        Assert.assertThat((users.get(2).compareTo(resultList.get(2))), is (0));
-        Assert.assertThat((users.get(3).compareTo(resultList.get(3))), is (0));
+        Assert.assertThat((users.get(0).compareTo(resultList.get(0))), is(0));
+        Assert.assertThat((users.get(1).compareTo(resultList.get(1))), is(0));
+        Assert.assertThat((users.get(2).compareTo(resultList.get(2))), is(0));
+        Assert.assertThat((users.get(3).compareTo(resultList.get(3))), is(0));
     }
 
 }

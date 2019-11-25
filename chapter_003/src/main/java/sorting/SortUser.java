@@ -27,9 +27,9 @@ public class SortUser {
     }
 
     public Set<User> sort(List<User> users) {
-        Set<User> sorted_users = new TreeSet<>();
-        sorted_users.addAll(users);
-        return sorted_users;
+        Set<User> sortedUsers = new TreeSet<>();
+        sortedUsers.addAll(users);
+        return sortedUsers;
     }
 
     public List<User> sortNameLength(List<User> users) {

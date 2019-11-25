@@ -16,14 +16,14 @@ public class StartUITest {
     private Item item;
     private PrintStream stdout = System.out;
     private ByteArrayOutputStream out = new ByteArrayOutputStream();
-    private static final String MENU = "Меню." +
-            System.lineSeparator() + "0. Создать новую заявку." +
-            System.lineSeparator() + "1. Показать все заявки." +
-            System.lineSeparator() + "2. Редактировать заявку." +
-            System.lineSeparator() + "3. Удалить заявку" +
-            System.lineSeparator() + "4. Найти заявку по id" +
-            System.lineSeparator() + "5. Найти заявку по имени" +
-            System.lineSeparator() + "6. Выйти из программы";
+    private static final String MENU = "Меню."
+            + System.lineSeparator() + "0. Создать новую заявку."
+            + System.lineSeparator() + "1. Показать все заявки."
+            + System.lineSeparator() + "2. Редактировать заявку."
+            + System.lineSeparator() + "3. Удалить заявку"
+            + System.lineSeparator() + "4. Найти заявку по id"
+            + System.lineSeparator() + "5. Найти заявку по имени"
+            + System.lineSeparator() + "6. Выйти из программы";
 
     @Before
     public void loadOutput() {
