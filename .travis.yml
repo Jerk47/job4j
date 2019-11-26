@@ -18,3 +18,7 @@ notifications:
       -romtswork@gmail.com
     on_success: never # default: change
     on_failure: always # default: always
+
+env:
+  global:
+    - CODECOV_TOKEN="078d723a-5993-413e-88f2-43db7f64583e"
