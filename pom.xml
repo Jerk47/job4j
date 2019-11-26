@@ -74,14 +74,14 @@
                     </execution>
                 </executions>
             </plugin>
-                <plugin>
-                    <groupId>org.openjfx</groupId>
-                    <artifactId>javafx-maven-plugin</artifactId>
-                    <version>0.0.3</version>
-                    <configuration>
-                        <mainClass>HelloFX</mainClass>
-                    </configuration>
-                </plugin>
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.3</version>
+                <configuration>
+                    <mainClass>HelloFX</mainClass>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -103,6 +103,6 @@
             <artifactId>javafx-controls</artifactId>
             <version>13</version>
         </dependency>
-</dependencies>
+    </dependencies>
 
 </project>
