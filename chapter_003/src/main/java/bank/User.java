@@ -1,10 +1,27 @@
 package bank;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class User {
     private String name;
     private String passport;
+    private ArrayList<Account> userAccounts = new ArrayList<>();
+
+    public ArrayList<Account> getUserAccounts() {
+        return userAccounts;
+    }
+
+    public void setUserAccounts(ArrayList<Account> userAccounts) {
+        this.userAccounts = userAccounts;
+    }
+
+    public User(String name, String passport, ArrayList<Account> userAccounts) {
+        this.name = name;
+        this.passport = passport;
+        this.userAccounts = userAccounts;
+    }
+
 
     public User(String name, String passport) {
         this.name = name;
