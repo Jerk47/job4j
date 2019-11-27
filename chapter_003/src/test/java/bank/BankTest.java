@@ -6,21 +6,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 public class BankTest {
 
-    User userVasily = new User("Vasily", "27471");
-    User userIvan = new User("Ivan", "27472");
-    User userMarya = new User("Marya", "27473");
-    User userOlga = new User("Olga", "27474");
-    Bank bank = new Bank();
-    Account account1 = new Account(500, 111);
-    Account account2 = new Account(1000, 112);
-    Account account3 = new Account(1500, 113);
-    Account account4 = new Account(2000, 114);
-    Account account5 = new Account(0, 115);
+    private User userVasily = new User("Vasily", "27471");
+    private User userIvan = new User("Ivan", "27472");
+    private User userMarya = new User("Marya", "27473");
+    private User userOlga = new User("Olga", "27474");
+    private Bank bank = new Bank();
+    private Account account1 = new Account(500, 111);
+    private Account account2 = new Account(1000, 112);
+    private Account account3 = new Account(1500, 113);
+    private Account account4 = new Account(2000, 114);
+    private Account account5 = new Account(0, 115);
 
     @Test
     public void whenAddUser() {
@@ -71,8 +72,8 @@ public class BankTest {
 
     @Test
     public void whenGetUserAccounts() {
-        List<Account> resultList = new ArrayList<Account>();
-        List<Account> expectedList = new ArrayList<Account>();
+        List<Account> resultList = new ArrayList<>();
+        List<Account> expectedList = new ArrayList<>();
         bank.addUser(userVasily);
         bank.addAccountFromUser(userVasily.getPassport(), account1);
         bank.addAccountFromUser(userVasily.getPassport(), account2);
@@ -86,13 +87,21 @@ public class BankTest {
 
     @Test
     public void whenTransferMoney() {
+        boolean result;
+        boolean resultIfZero;
         bank.addUser(userVasily);
         bank.addUser(userIvan);
         bank.addAccountFromUser(userVasily.getPassport(), account1);
+        bank.addAccountFromUser(userVasily.getPassport(), account5);
         bank.addAccountFromUser(userIvan.getPassport(), account2);
-        bank.transferMoney(userVasily.getPassport(), Integer.toString(userVasily.getUserAccounts().get(0).getRequisites()),
+        result = bank.transferMoney(userVasily.getPassport(), Integer.toString(userVasily.getUserAccounts().get(0).getRequisites()),
                 userIvan.getPassport(), Integer.toString(userIvan.getUserAccounts().get(0).getRequisites()), 500.00);
-
+        resultIfZero = bank.transferMoney(userVasily.getPassport(), Integer.toString(userVasily.getUserAccounts().get(1).getRequisites()),
+                userIvan.getPassport(), Integer.toString(userIvan.getUserAccounts().get(0).getRequisites()), 500.00);
+        assertThat(userVasily.getUserAccounts().get(0).getValue(), closeTo(0.0, 0));
+        assertThat(userIvan.getUserAccounts().get(0).getValue(), closeTo(1500.0, 0));
+        assertThat(result, is(true));
+        assertThat(resultIfZero, is(false));
 
     }
 }
