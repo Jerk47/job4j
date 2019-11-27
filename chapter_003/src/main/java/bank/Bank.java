@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Bank {
 
@@ -23,7 +24,7 @@ public class Bank {
                 .stream()
                 .filter(e -> e.getKey().getPassport().equals(passport))
                 .forEach(e ->
-                    e.getKey().getUserAccounts().add(account));
+                        e.getKey().getUserAccounts().add(account));
     }
 
 
@@ -33,13 +34,12 @@ public class Bank {
                 .stream()
                 .filter(e -> e.getKey().getPassport().equals(passport))
                 .forEach(e ->
-                    e.getKey().getUserAccounts().remove(account));
+                        e.getKey().getUserAccounts().remove(account));
     }
 
     public List<Account> getUserAccounts(String passport) {
         List<Account> resultList = new ArrayList<>();
         for (Map.Entry<User, List<Account>> item : usersInfo.entrySet()) {
-
             if (item.getKey().getPassport().equals(passport)) {
                 resultList = item.getKey().getUserAccounts();
             }
@@ -48,14 +48,14 @@ public class Bank {
     }
 
     public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String dstRequisite, double amount) {
-        boolean result = true;
+        AtomicBoolean result = new AtomicBoolean(false);
         usersInfo
                 .entrySet()
                 .stream()
                 .filter(e -> e.getKey().getPassport().equals(srcPassport)).
                 forEach(e -> {
                     for (Account account : e.getKey().getUserAccounts()) {
-                        if (account.getRequisites() == Integer.parseInt(srcRequisite)) {
+                        if (account.getRequisites() == Integer.parseInt(srcRequisite) && account.getValue() >= amount) {
                             usersInfo
                                     .entrySet()
                                     .stream()
@@ -68,23 +68,11 @@ public class Bank {
                                             }
                                         }
                                     });
+                            result.set(true);
                         }
                     }
                 });
-        return result;
-    }
-
-    public static void main(String[] args) {
-        User testUser = new User("Roman", "4729 647583");
-        Bank testBank = new Bank();
-        Account testAccount1 = new Account(1000.00, 2874321);
-        Account testAccount2 = new Account(1500.00, 2874322);
-        testBank.addUser(testUser);
-        testBank.addAccountFromUser(testUser.getPassport(), testAccount1);
-        testBank.addAccountFromUser(testUser.getPassport(), testAccount2);
-        testBank.transferMoney("4729 647583", Integer.toString(testAccount1.getRequisites()), "4729 647583", Integer.toString(testAccount2.getRequisites()), 500.00);
-        System.out.println(testBank.getUserAccounts("4729 647583").get(0).getValue());
-        System.out.println(testBank.getUserAccounts("4729 647583").get(1).getValue());
+        return result.get();
     }
 }
 
