@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class BankTest {
 
@@ -56,5 +56,43 @@ public class BankTest {
         assertThat(userVasily.getUserAccounts().get(0), is(account1));
         assertThat(userVasily.getUserAccounts().get(1), is(account2));
         assertThat(userVasily.getUserAccounts().get(2), is(account3));
+    }
+
+    @Test
+    public void whenDeleteAccountFromUser() {
+        bank.addUser(userVasily);
+        bank.addAccountFromUser(userVasily.getPassport(), account1);
+        bank.addAccountFromUser(userVasily.getPassport(), account2);
+        bank.addAccountFromUser(userVasily.getPassport(), account3);
+        bank.deleteAccountFromUser(userVasily.getPassport(), account1);
+        assertThat(userVasily.getUserAccounts().get(0), is(account2));
+        assertThat(userVasily.getUserAccounts().get(1), is(account3));
+    }
+
+    @Test
+    public void whenGetUserAccounts() {
+        List<Account> resultList = new ArrayList<Account>();
+        List<Account> expectedList = new ArrayList<Account>();
+        bank.addUser(userVasily);
+        bank.addAccountFromUser(userVasily.getPassport(), account1);
+        bank.addAccountFromUser(userVasily.getPassport(), account2);
+        bank.addAccountFromUser(userVasily.getPassport(), account3);
+        expectedList.add(account1);
+        expectedList.add(account2);
+        expectedList.add(account3);
+        resultList = bank.getUserAccounts(userVasily.getPassport());
+        assertEquals(expectedList, resultList);
+    }
+
+    @Test
+    public void whenTransferMoney() {
+        bank.addUser(userVasily);
+        bank.addUser(userIvan);
+        bank.addAccountFromUser(userVasily.getPassport(), account1);
+        bank.addAccountFromUser(userIvan.getPassport(), account2);
+        bank.transferMoney(userVasily.getPassport(), Integer.toString(userVasily.getUserAccounts().get(0).getRequisites()),
+                userIvan.getPassport(), Integer.toString(userIvan.getUserAccounts().get(0).getRequisites()), 500.00);
+
+
     }
 }
