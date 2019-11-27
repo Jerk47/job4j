@@ -12,8 +12,8 @@ public class User {
         return userAccounts;
     }
 
-    public void setUserAccounts(Account account) {
-        this.userAccounts.add(account);
+    public void setUserAccounts(ArrayList<Account> userAccounts) {
+        this.userAccounts = userAccounts;
     }
 
     public User(String name, String passport, ArrayList<Account> userAccounts) {

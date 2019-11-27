@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -38,6 +39,22 @@ public class BankTest {
 
     @Test
     public void whenDeleteUser() {
+        bank.addUser(userVasily);
+        boolean result1 = bank.usersInfo.containsKey(userVasily);
+        bank.deleteUser(userVasily);
+        boolean result2 = bank.usersInfo.containsKey(userVasily);
+        assertThat(result1, is(true));
+        assertThat(result2, is(false));
+    }
 
+    @Test
+    public void whenAddAccountFromUser() {
+        bank.addUser(userVasily);
+        bank.addAccountFromUser(userVasily.getPassport(), account1);
+        bank.addAccountFromUser(userVasily.getPassport(), account2);
+        bank.addAccountFromUser(userVasily.getPassport(), account3);
+        assertThat(userVasily.getUserAccounts().get(0), is(account1));
+        assertThat(userVasily.getUserAccounts().get(1), is(account2));
+        assertThat(userVasily.getUserAccounts().get(2), is(account3));
     }
 }
