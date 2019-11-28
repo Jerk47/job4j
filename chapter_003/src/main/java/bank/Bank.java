@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Stream;
 
 public class Bank {
 
@@ -19,22 +20,13 @@ public class Bank {
     }
 
     public void addAccountFromUser(String passport, Account account) {
-        usersInfo
-                .entrySet()
-                .stream()
-                .filter(e -> e.getKey().getPassport().equals(passport))
-                .forEach(e ->
-                        e.getKey().getUserAccounts().add(account));
+        searchByPassport(passport).forEach(e ->
+                e.getKey().getUserAccounts().add(account));
     }
 
-
     public void deleteAccountFromUser(String passport, Account account) {
-        usersInfo
-                .entrySet()
-                .stream()
-                .filter(e -> e.getKey().getPassport().equals(passport))
-                .forEach(e ->
-                        e.getKey().getUserAccounts().remove(account));
+        searchByPassport(passport).forEach(e ->
+                e.getKey().getUserAccounts().remove(account));
     }
 
     public List<Account> getUserAccounts(String passport) {
@@ -49,30 +41,35 @@ public class Bank {
 
     public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String dstRequisite, double amount) {
         AtomicBoolean result = new AtomicBoolean(false);
-        usersInfo
-                .entrySet()
-                .stream()
-                .filter(e -> e.getKey().getPassport().equals(srcPassport)).
+        searchByPassport(srcPassport).
                 forEach(e -> {
                     for (Account account : e.getKey().getUserAccounts()) {
-                        if (account.getRequisites() == Integer.parseInt(srcRequisite) && account.getValue() >= amount) {
-                            usersInfo
-                                    .entrySet()
-                                    .stream()
-                                    .filter(r -> r.getKey().getPassport().equals(destPassport)).
-                                    forEach(r -> {
-                                        for (Account dstAccount : r.getKey().getUserAccounts()) {
-                                            if (dstAccount.getRequisites() == Integer.parseInt(dstRequisite)) {
-                                                dstAccount.setValue(dstAccount.getValue() + amount);
-                                                account.setValue(account.getValue() - amount);
-                                            }
-                                        }
-                                    });
-                            result.set(true);
-                        }
+                        searchByRequisite(srcRequisite, dstRequisite, destPassport, amount, account, result);
                     }
                 });
         return result.get();
+    }
+
+    private Stream<Map.Entry<User, List<Account>>> searchByPassport(String passport) {
+        return usersInfo
+                .entrySet()
+                .stream()
+                .filter(e -> e.getKey().getPassport().equals(passport));
+    }
+
+    private void searchByRequisite(String srcRequisite, String dstRequisite,
+                                   String destPassport, double amount, Account account, AtomicBoolean result) {
+        if (account.getRequisites() == Integer.parseInt(srcRequisite) && account.getValue() >= amount) {
+            searchByPassport(destPassport).
+                    forEach(r -> {
+                        for (Account dstAccount : r.getKey().getUserAccounts()) {
+                            if (dstAccount.getRequisites() == Integer.parseInt(dstRequisite)) {
+                                account.transfer(account, dstAccount, amount);
+                                result.set(true);
+                            }
+                        }
+                    });
+        }
     }
 }
 
