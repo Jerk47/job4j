@@ -25,8 +25,8 @@ public class Account {
         this.requisites = requisites;
     }
 
-    public void transfer(Account account, Account dstAccount, double amount) {
-        dstAccount.setValue(dstAccount.getValue() + amount);
-        account.setValue(account.getValue() - amount);
+    public void transfer(Account anotherAccount, double amount) {
+        anotherAccount.setValue(anotherAccount.getValue() + amount);
+        this.setValue(this.getValue() - amount);
     }
 }
