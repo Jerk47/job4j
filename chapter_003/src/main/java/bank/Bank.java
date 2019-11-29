@@ -46,42 +46,32 @@ public class Bank {
     }
 
     private User searchByPassport(String passport) {
-        return  usersInfo
+        return usersInfo
                 .entrySet()
                 .stream()
                 .filter(e ->
-                    e.getKey().getPassport().equals(passport))
+                        e.getKey().getPassport().equals(passport))
                 .findFirst()
                 .map(Map.Entry::getKey)
                 .orElse(null);
     }
 
     private Account searchByRequisite(User user, String req) {
-        {
-            AtomicReference<Account> resultAccount = null;
-            usersInfo
-                    .entrySet()
-                    .stream()
-                    .filter(r -> searchByPassport(r.getKey().getPassport()).equals(searchByPassport(user.getPassport())))
-                    .forEach(r -> {
-                        for (Account searchAccount : r.getKey().getUserAccounts()) {
-                            if (searchAccount.getRequisites() == Integer.parseInt(req)) {
-                                resultAccount.set(searchAccount);
-                            }
+        AtomicReference<Account> resultAccount = new AtomicReference<Account>();
+        usersInfo
+                .entrySet()
+                .stream()
+                .filter(r -> searchByPassport(r.getKey().getPassport()).equals(searchByPassport(user.getPassport())))
+                .forEach(r -> {
+                    for (Account account : r.getKey().getUserAccounts()) {
+                        if (Integer.toString(account.getRequisites()).equals(req)) {
+                            resultAccount.set(account);
                         }
-                    });
-            assert resultAccount != null;
-            return resultAccount.get();
-        }
-    }
-
-    public static void main(String[] args) {
-        Bank bank = new Bank();
-        User elena = new User("22", "2221");
-        bank.addUser(elena);
-        Account account = new Account(22.2, 123);
-        bank.addAccountFromUser(elena.getPassport(), account);
+                    }
+                });
+        return resultAccount.get();
     }
 }
+
 
 
