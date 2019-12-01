@@ -3,6 +3,8 @@ package bank;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class Bank {
 
@@ -34,7 +36,7 @@ public class Bank {
         return resultList;
     }
 
-    public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String dstRequisite, double amount) {
+   public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String dstRequisite, double amount) {
         AtomicBoolean result = new AtomicBoolean(false);
         Account srcAccount = searchByRequisite(searchByPassport(srcPassport), srcRequisite);
         Account dstAccount = searchByRequisite(searchByPassport(destPassport), dstRequisite);
@@ -45,7 +47,7 @@ public class Bank {
         return result.get();
     }
 
-    private User searchByPassport(String passport) {
+    public User searchByPassport(String passport) {
         return usersInfo
                 .entrySet()
                 .stream()
@@ -56,20 +58,19 @@ public class Bank {
                 .orElse(null);
     }
 
-    private Account searchByRequisite(User user, String req) {
-        AtomicReference<Account> resultAccount = new AtomicReference<Account>();
-        usersInfo
-                .entrySet()
-                .stream()
-                .filter(r -> searchByPassport(r.getKey().getPassport()).equals(searchByPassport(user.getPassport())))
-                .forEach(r -> {
-                    for (Account account : r.getKey().getUserAccounts()) {
-                        if (Integer.toString(account.getRequisites()).equals(req)) {
-                            resultAccount.set(account);
-                        }
-                    }
-                });
-        return resultAccount.get();
+    public Account searchByRequisite(User user, String req) {
+        Account resultAccount = null;
+        if (user != null) {
+            for (Account account : searchByPassport(user.getPassport()).getUserAccounts()) {
+                if (account.getRequisites() == Integer.parseInt(req)) {
+                    resultAccount = account;
+                    break;
+                }
+            }
+        } else {
+            throw new NullPointerException();
+        }
+        return resultAccount;
     }
 }
 
