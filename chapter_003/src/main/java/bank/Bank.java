@@ -67,8 +67,6 @@ public class Bank {
                     break;
                 }
             }
-        } else {
-            throw new NullPointerException();
         }
         return resultAccount;
     }
