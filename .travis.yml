@@ -15,10 +15,10 @@ after_success:
 notifications:
   email:
     recipients:
-      -romtswork@gmail.com
+      - romtswork@gmail.com
     on_success: never # default: change
     on_failure: always # default: always
 
 env:
   global:
-    CODECOV_TOKEN="7a7070d5-733c-450f-9bfc-ac78debbcbfa"
+    - CODECOV_TOKEN="7a7070d5-733c-450f-9bfc-ac78debbcbfa"

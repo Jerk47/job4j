@@ -16,6 +16,10 @@ public class User {
         this.userAccounts = userAccounts;
     }
 
+    public User(String name) {
+        this.name = name;
+    }
+
     public User(String name, String passport, ArrayList<Account> userAccounts) {
         this.name = name;
         this.passport = passport;

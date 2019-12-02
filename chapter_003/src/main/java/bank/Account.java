@@ -25,5 +25,8 @@ public class Account {
         this.requisites = requisites;
     }
 
-
+    public void transfer(Account anotherAccount, double amount) {
+        anotherAccount.setValue(anotherAccount.getValue() + amount);
+        this.setValue(this.getValue() - amount);
+    }
 }

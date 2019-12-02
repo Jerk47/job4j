@@ -1,10 +1,10 @@
 package bank;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class Bank {
 
@@ -19,22 +19,11 @@ public class Bank {
     }
 
     public void addAccountFromUser(String passport, Account account) {
-        usersInfo
-                .entrySet()
-                .stream()
-                .filter(e -> e.getKey().getPassport().equals(passport))
-                .forEach(e ->
-                        e.getKey().getUserAccounts().add(account));
+        searchByPassport(passport).getUserAccounts().add(account);
     }
 
-
     public void deleteAccountFromUser(String passport, Account account) {
-        usersInfo
-                .entrySet()
-                .stream()
-                .filter(e -> e.getKey().getPassport().equals(passport))
-                .forEach(e ->
-                        e.getKey().getUserAccounts().remove(account));
+        searchByPassport(passport).getUserAccounts().remove(account);
     }
 
     public List<Account> getUserAccounts(String passport) {
@@ -47,33 +36,41 @@ public class Bank {
         return resultList;
     }
 
-    public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String dstRequisite, double amount) {
+   public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String dstRequisite, double amount) {
         AtomicBoolean result = new AtomicBoolean(false);
-        usersInfo
-                .entrySet()
-                .stream()
-                .filter(e -> e.getKey().getPassport().equals(srcPassport)).
-                forEach(e -> {
-                    for (Account account : e.getKey().getUserAccounts()) {
-                        if (account.getRequisites() == Integer.parseInt(srcRequisite) && account.getValue() >= amount) {
-                            usersInfo
-                                    .entrySet()
-                                    .stream()
-                                    .filter(r -> r.getKey().getPassport().equals(destPassport)).
-                                    forEach(r -> {
-                                        for (Account dstAccount : r.getKey().getUserAccounts()) {
-                                            if (dstAccount.getRequisites() == Integer.parseInt(dstRequisite)) {
-                                                dstAccount.setValue(dstAccount.getValue() + amount);
-                                                account.setValue(account.getValue() - amount);
-                                            }
-                                        }
-                                    });
-                            result.set(true);
-                        }
-                    }
-                });
+        Account srcAccount = searchByRequisite(searchByPassport(srcPassport), srcRequisite);
+        Account dstAccount = searchByRequisite(searchByPassport(destPassport), dstRequisite);
+        if (srcAccount.getValue() >= amount) {
+            srcAccount.transfer(dstAccount, amount);
+            result.set(true);
+        }
         return result.get();
     }
+
+    public User searchByPassport(String passport) {
+        return usersInfo
+                .entrySet()
+                .stream()
+                .filter(e ->
+                        e.getKey().getPassport().equals(passport))
+                .findFirst()
+                .map(Map.Entry::getKey)
+                .orElse(null);
+    }
+
+    public Account searchByRequisite(User user, String req) {
+        Account resultAccount = null;
+        if (user != null) {
+            for (Account account : searchByPassport(user.getPassport()).getUserAccounts()) {
+                if (account.getRequisites() == Integer.parseInt(req)) {
+                    resultAccount = account;
+                    break;
+                }
+            }
+        }
+        return resultAccount;
+    }
 }
+
 
 
