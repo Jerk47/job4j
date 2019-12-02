@@ -11,6 +11,8 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jacoco.execution.file>${project.build.directory}/coverage-reports/jacoco.exec</jacoco.execution.file>
+        <outputDirectory>${project.build.directory}/coverage-reports/jacoco</outputDirectory>
     </properties>
 
     <modules>
@@ -59,6 +61,10 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.4</version>
+                <configuration>
+                    <destFile>${jacoco.execution.file}</destFile>
+                    <dataFile>${jacoco.execution.file}</dataFile>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
