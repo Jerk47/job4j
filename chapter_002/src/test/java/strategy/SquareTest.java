@@ -13,7 +13,7 @@ public class SquareTest {
                 .append("+ + + +\n")
                 .append("+     +\n")
                 .append("+     +\n")
-                .append("+ + + +\n").toString())
+                .append("+ + + +").toString())
         );
     }
 }
