@@ -29,13 +29,13 @@ public class MenuTracker {
     }
 
     public void fillActions() {
-        this.actions.add(new AddItem(ADD, "Add the new item"));
-        this.actions.add(new ShowItems(SHOW_ALL, "Show all items"));
-        this.actions.add(new UpdateItem(EDIT, "Edit item."));
-        this.actions.add(new DeleteItem(DELETE, "Delete item."));
-        this.actions.add(new FindItemById(FIND_BY_ID, "Find item by id"));
-        this.actions.add(new FindItemsByName(FIND_BY_NAME, "Find items by name."));
-        this.actions.add(new ExitProgram(EXIT, "Exit program"));
+        this.actions.add(new AddItem(ADD, "1. Показать все заявки."));
+        this.actions.add(new ShowItems(SHOW_ALL, "2. Редактировать заявку."));
+        this.actions.add(new UpdateItem(EDIT, "3. Удалить заявку"));
+        this.actions.add(new DeleteItem(DELETE, "4. Найти заявку по id"));
+        this.actions.add(new FindItemById(FIND_BY_ID, "5. Найти заявку по имени "));
+        this.actions.add(new FindItemsByName(FIND_BY_NAME, "6. Выйти из программы"));
+        this.actions.add(new ExitProgram(EXIT, "Заявка успешно удалена."));
     }
 
     public void select(int key) {
