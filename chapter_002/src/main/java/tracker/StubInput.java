@@ -1,6 +1,5 @@
 package tracker;
 
-import org.jetbrains.annotations.NotNull;
 
 public class StubInput implements Input {
     private final String[] answers;
@@ -13,25 +12,24 @@ public class StubInput implements Input {
 
     @Override
     public String ask(String question) {
-        if (position < this.answers.length-1) {
-        position++;
+        if (position < this.answers.length - 1) {
+            position++;
         }
         return answers[position];
     }
 
     @Override
-    public int ask(String question, @NotNull int[] range) throws Exception {
-//        int key = Integer.parseInt(ask(question));
-//        boolean exists = false;
-//        for (int value : range) {
-//            if (value == key) {
-//                exists = true;
-//            }
-//        }
-//        if (!exists) {
-//            throw new MenuOutException("out of menu range");
-//        }
-//        return key;
-        return 0;
+    public int ask(String question, int[] range) throws Exception {
+        int key = Integer.parseInt(ask(question));
+        boolean exists = false;
+        for (int value : range) {
+            if (value == key) {
+                exists = true;
+            }
+        }
+        if (!exists) {
+            throw new MenuOutException("out of menu range");
+        }
+        return key;
     }
 }
