@@ -1,13 +1,10 @@
 package tracker;
 
 
-import org.jetbrains.annotations.Contract;
-
 public class StubInput implements Input {
     private final String[] answers;
     private int position = -1;
 
-    @Contract(pure = true)
     public StubInput(final String[] answers) {
         this.answers = answers;
     }

@@ -23,18 +23,12 @@ public class StartUITest {
         public void accept(String s) {
             stdout.println(s);
         }
+
+        @Override
+        public String toString() {
+            return out.toString();
+        }
     };
-
-    @Before
-    public void loadOutput() {
-        System.setOut(new PrintStream(out));
-        item = tracker.add(new Item("test name", "desc"));
-    }
-
-    @After
-    public void backOutput() {
-        System.setOut(new PrintStream(out));
-    }
 
     private static final String MENU = "Menu:"
             + System.lineSeparator() + "0 : Create new task"
@@ -51,8 +45,7 @@ public class StartUITest {
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() throws Exception {
         Input input = new StubInput(new String[]{"0", "test name", "desc", "y"});
         new StartUI(input, tracker, output).init();
-       // this.output.toString() = out;
-        assertThat(this.output.accept(out.toString()), is("test name"));
+        assertThat(this.output.toString(), is("test name"));
     }
 
     @Test
