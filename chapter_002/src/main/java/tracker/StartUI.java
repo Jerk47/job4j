@@ -25,7 +25,6 @@ public class StartUI {
             menu.show();
             menu.select(new ValidateInput(this.input).ask("select: ", ranges));
         }
-
         while (!"y".equals(this.input.ask("Exit?(y): ")));
     }
 

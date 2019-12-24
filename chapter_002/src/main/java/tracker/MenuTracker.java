@@ -29,6 +29,7 @@ public class MenuTracker {
     }
 
     public void fillActions() {
+        System.out.println("Menu: ");
         this.actions.add(new AddItem(ADD, "Create new task"));
         this.actions.add(new ShowItems(SHOW_ALL, "Show all task"));
         this.actions.add(new UpdateItem(EDIT, "Edit task"));
@@ -38,7 +39,7 @@ public class MenuTracker {
         this.actions.add(new ExitProgram(EXIT, "Exit"));
     }
 
-    public void select(int key) {
+    public void select(int key) throws Exception {
         this.actions.get(key).execute(this.input, this.tracker);
     }
 
@@ -52,24 +53,22 @@ public class MenuTracker {
 
     public class AddItem extends BaseAction {
 
-
         protected AddItem(int key, String name) {
             super(key, name);
         }
 
         @Override
         public void execute(Input input, Tracker tracker) {
-           output.accept("------------ Adding a new task ------------");
+            output.accept("------------ Adding a new task ------------");
             String name = input.ask("Please, enter the name of the task :");
             String desc = input.ask("Please, enter the description of the task :");
             Item item = new Item(name, desc);
             tracker.add(item);
-           output.accept("------------ New task was created with getId : " + item.getId());
+            output.accept("------------ New task was created with getId : " + item.getId());
         }
     }
 
     public class ShowItems extends BaseAction {
-
 
         protected ShowItems(int key, String name) {
             super(key, name);
@@ -78,8 +77,8 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             for (Item item : tracker.findAll()) {
-               output.accept(item.getName());
-               output.accept(item.getDesc());
+                output.accept(item.getName());
+                output.accept(item.getDesc());
             }
         }
     }
@@ -98,9 +97,9 @@ public class MenuTracker {
             String taskDescription = input.ask("Please, enter the description ot the new task");
             finallyEdit = tracker.replace(id, new Item(nameQuestion, taskDescription));
             if (finallyEdit) {
-               output.accept("Task was successfully updated");
+                output.accept("Task was successfully updated");
             } else {
-               output.accept("Task was't found");
+                output.accept("Task was't found");
             }
         }
     }
@@ -120,16 +119,15 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             boolean result;
-            String idDelete = input.ask("Введите id заявки для удаления");
+            String idDelete = input.ask("Please, enter the id of the task to delete");
             result = tracker.delete(idDelete);
             if (result) {
-               output.accept("The task was success");
+                output.accept("The task was successfully deleted");
             }
         }
     }
 
     public class FindItemById extends BaseAction {
-
 
         protected FindItemById(int key, String name) {
             super(key, name);
@@ -138,22 +136,20 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             String idItem = input.ask("Please enter id of the task");
-           output.accept(tracker.findById(idItem).toString());
+            output.accept(tracker.findById(idItem).toString());
         }
     }
 
     public class FindItemsByName extends BaseAction {
 
-
         protected FindItemsByName(int key, String name) {
             super(key, name);
         }
 
-
         @Override
         public void execute(Input input, Tracker tracker) {
             String nameItem = input.ask("Please, enter the name for searching task");
-           output.accept(tracker.findByName(nameItem).toString());
+            output.accept(tracker.findByName(nameItem).toString());
         }
 
     }
@@ -170,8 +166,8 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) {
-
+        public void execute(Input input, Tracker tracker) throws Exception {
+            new StartUI(new ValidateInput(new ConsoleInput()), new Tracker(), System.out::println).init();
         }
     }
 }

@@ -36,20 +36,23 @@ public class StartUITest {
         System.setOut(new PrintStream(out));
     }
 
-    private static final String MENU = "Меню."
-            + System.lineSeparator() + "0. Создать новую заявку."
-            + System.lineSeparator() + "1. Показать все заявки."
-            + System.lineSeparator() + "2. Редактировать заявку."
-            + System.lineSeparator() + "3. Удалить заявку"
-            + System.lineSeparator() + "4. Найти заявку по id"
-            + System.lineSeparator() + "5. Найти заявку по имени"
-            + System.lineSeparator() + "6. Выйти из программы";
+    private static final String MENU = "Menu:"
+            + System.lineSeparator() + "0 : Create new task"
+            + System.lineSeparator() + "1 : Show all task"
+            + System.lineSeparator() + "2 : Edit task"
+            + System.lineSeparator() + "3 : Delete task"
+            + System.lineSeparator() + "4 : Find task by id"
+            + System.lineSeparator() + "5 : Find task by name"
+            + System.lineSeparator() + "6 : Exit"
+            + System.lineSeparator() + '\n'
+            + System.lineSeparator() + "select:";
 
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() throws Exception {
         Input input = new StubInput(new String[]{"0", "test name", "desc", "y"});
         new StartUI(input, tracker, output).init();
-        assertThat(tracker.findAll().get(0).getName(), is("test name"));
+       // this.output.toString() = out;
+        assertThat(this.output.accept(out.toString()), is("test name"));
     }
 
     @Test

@@ -1,10 +1,13 @@
 package tracker;
 
 
+import org.jetbrains.annotations.Contract;
+
 public class StubInput implements Input {
     private final String[] answers;
-    private int position = 0;
+    private int position = -1;
 
+    @Contract(pure = true)
     public StubInput(final String[] answers) {
         this.answers = answers;
     }
@@ -19,7 +22,7 @@ public class StubInput implements Input {
     }
 
     @Override
-    public int ask(String question, int[] range) throws Exception {
+    public int ask(String question, int[] range)  {
         int key = Integer.parseInt(ask(question));
         boolean exists = false;
         for (int value : range) {
