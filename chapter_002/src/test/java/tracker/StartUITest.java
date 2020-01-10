@@ -45,28 +45,38 @@ public class StartUITest {
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() throws Exception {
         Input input = new StubInput(new String[]{"0", "test name", "desc", "y"});
         new StartUI(input, tracker, output).init();
-        assertThat(this.output.toString(), is("test name"));
+        String result = new StringBuilder()
+                .append("0 : Create new task" + '\n')
+                .append("1 : Show all task" + '\n')
+                .append("2 : Edit task" + '\n')
+                .append("3 : Delete task" + '\n')
+                .append("4 : Find task by id" + '\n')
+                .append("5 : Find task by name" + '\n')
+                .append("6 : Exit" + '\n' + '\n')
+                .append("------------ Adding a new task ------------" + '\n')
+                .append("------------ New task was created with getId : " + this.tracker.getItems().get(0).getId() + '\n').toString();
+        assertThat(this.output.toString(), is(result));
     }
 
     @Test
     public void whenUpdateThenTrackerHasUpdatedValue() throws Exception {
-        Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "y"});
+        Input input = new StubInput(new String[]{"2", this.tracker.getItems().get(0).getId(), "test replace", "заменили заявку", "y"});
         new StartUI(input, tracker, output).init();
         String result = new StringBuilder()
                 .append(MENU)
-                .append("Создать новую заявку.")
+                .append("0 : Create new task" + '\n')
                 .append(System.lineSeparator())
-                .append("Показать все заявки.")
+                .append("1 : Show all task" + '\n')
                 .append(System.lineSeparator())
-                .append("Редактировать заявку.")
+                .append("2 : Edit task" + '\n')
                 .append(System.lineSeparator())
-                .append("Удалить заявку")
+                .append("3 : Delete task" + '\n')
                 .append(System.lineSeparator())
-                .append("Найти заявку по id")
+                .append("4 : Find task by id" + '\n')
                 .append(System.lineSeparator())
-                .append("Найти заявку по имени")
+                .append("5 : Find task by name" + '\n')
                 .append(System.lineSeparator())
-                .append("Выйти из программы")
+                .append("6 : Exit" + '\n' + '\n')
                 .append(System.lineSeparator())
                 .append("Заявка успешно обновлена.")
                 .append(System.lineSeparator())
