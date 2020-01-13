@@ -29,38 +29,29 @@ public class MenuTracker {
     }
 
     public void fillActions() {
-        this.actions.add(new AddItem(ADD, "1. Показать все заявки."));
-        this.actions.add(new ShowItems(SHOW_ALL, "2. Редактировать заявку."));
-        this.actions.add(new UpdateItem(EDIT, "3. Удалить заявку"));
-        this.actions.add(new DeleteItem(DELETE, "4. Найти заявку по id"));
-        this.actions.add(new FindItemById(FIND_BY_ID, "5. Найти заявку по имени "));
-        this.actions.add(new FindItemsByName(FIND_BY_NAME, "6. Выйти из программы"));
-        this.actions.add(new ExitProgram(EXIT, "Заявка успешно удалена."));
+        System.out.println("Menu: ");
+        this.actions.add(new AddItem(ADD, "Create new task"));
+        this.actions.add(new ShowItems(SHOW_ALL, "Show all task"));
+        this.actions.add(new UpdateItem(EDIT, "Edit task"));
+        this.actions.add(new DeleteItem(DELETE, "Delete task"));
+        this.actions.add(new FindItemById(FIND_BY_ID, "Find task by id"));
+        this.actions.add(new FindItemsByName(FIND_BY_NAME, "Find task by name"));
+        this.actions.add(new ExitProgram(EXIT, "Exit"));
     }
 
-    public void select(int key) {
+    public void select(int key) throws Exception {
         this.actions.get(key).execute(this.input, this.tracker);
     }
 
     public void show() {
-        String sb = this.actions.get(0).info()
-                + System.lineSeparator()
-                + this.actions.get(1).info()
-                + System.lineSeparator()
-                + this.actions.get(2).info()
-                + System.lineSeparator()
-                + this.actions.get(3).info()
-                + System.lineSeparator()
-                + this.actions.get(4).info()
-                + System.lineSeparator()
-                + this.actions.get(5).info()
-                + System.lineSeparator()
-                + this.actions.get(6).info();
-        output.accept(sb);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i <= 6; i++) {
+            sb.append(this.actions.get(i).info() + '\n');
+        }
+        output.accept(sb.toString());
     }
 
     public class AddItem extends BaseAction {
-
 
         protected AddItem(int key, String name) {
             super(key, name);
@@ -68,17 +59,16 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
-           output.accept("------------ Добавление новой заявки ------------");
-            String name = input.ask("Введите имя заявки :");
-            String desc = input.ask("Введите описание заявки :");
+            output.accept("------------ Adding a new task ------------");
+            String name = input.ask("Please, enter the name of the task :");
+            String desc = input.ask("Please, enter the description of the task :");
             Item item = new Item(name, desc);
             tracker.add(item);
-           output.accept("------------ Новая заявка с getId : " + item.getId());
+            output.accept("------------ New task was created with getId : " + item.getId());
         }
     }
 
     public class ShowItems extends BaseAction {
-
 
         protected ShowItems(int key, String name) {
             super(key, name);
@@ -87,8 +77,8 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             for (Item item : tracker.findAll()) {
-               output.accept(item.getName());
-               output.accept(item.getDesc());
+                output.accept(item.getName());
+                output.accept(item.getDesc());
             }
         }
     }
@@ -102,14 +92,14 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             boolean finallyEdit;
-            String id = input.ask("Введите id заявки");
-            String nameQuestion = input.ask("Введите новое название заявки.");
-            String taskDescription = input.ask("Введите описание заявки.");
+            String id = input.ask("Please, enter id of the task");
+            String nameQuestion = input.ask("Please, enter the name of the new task");
+            String taskDescription = input.ask("Please, enter the description ot the new task");
             finallyEdit = tracker.replace(id, new Item(nameQuestion, taskDescription));
             if (finallyEdit) {
-               output.accept("Заявка успешно обновлена.");
+                output.accept("Task was successfully updated");
             } else {
-               output.accept("Заявка не найдена.");
+                output.accept("Task was't found");
             }
         }
     }
@@ -129,16 +119,15 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             boolean result;
-            String idDelete = input.ask("Введите id заявки для удаления");
+            String idDelete = input.ask("Please, enter the id of the task to delete");
             result = tracker.delete(idDelete);
             if (result) {
-               output.accept("Заявка успешно удалена.");
+                output.accept("The task was successfully deleted");
             }
         }
     }
 
     public class FindItemById extends BaseAction {
-
 
         protected FindItemById(int key, String name) {
             super(key, name);
@@ -146,23 +135,21 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            String idItem = input.ask("Введите id заявки");
-           output.accept(tracker.findById(idItem).toString());
+            String idItem = input.ask("Please enter id of the task");
+            output.accept(tracker.findById(idItem).toString());
         }
     }
 
     public class FindItemsByName extends BaseAction {
 
-
         protected FindItemsByName(int key, String name) {
             super(key, name);
         }
 
-
         @Override
         public void execute(Input input, Tracker tracker) {
-            String nameItem = input.ask("Введите имя для поиска заявки.");
-           output.accept(tracker.findByName(nameItem).toString());
+            String nameItem = input.ask("Please, enter the name for searching task");
+            output.accept(tracker.findByName(nameItem).toString());
         }
 
     }
@@ -179,8 +166,8 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) {
-
+        public void execute(Input input, Tracker tracker) throws Exception {
+            new StartUI(new ValidateInput(new ConsoleInput()), new Tracker(), System.out::println).init();
         }
     }
 }
