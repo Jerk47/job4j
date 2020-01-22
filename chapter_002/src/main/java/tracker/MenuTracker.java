@@ -38,7 +38,7 @@ public class MenuTracker {
         this.actions.add(new ExitProgram(EXIT, "Exit"));
     }
 
-    public void select(int key) {
+    public void select(int key) throws Exception {
         this.actions.get(key).execute(this.input, this.tracker);
     }
 
@@ -170,8 +170,8 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) {
-
+        public void execute(Input input, Tracker tracker) throws Exception {
+            new StartUI(new ValidateInput(new ConsoleInput()), new Tracker(), System.out::println).init();
         }
     }
 }
