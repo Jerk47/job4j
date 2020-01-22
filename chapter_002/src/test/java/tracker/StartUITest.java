@@ -64,7 +64,7 @@ public class StartUITest {
     @Test
     public void showAllTasks() throws Exception {
 
-        Input input = new StubInput(new String[]{"0", "test name", "desc","2", "1","y"});
+        Input input = new StubInput(new String[]{"0", "test name", "desc", "2", "1", "y"});
         new StartUI(input, tracker, output).init();
         String result = new StringBuilder()
                 .append("0 : Create new task" + '\n')
