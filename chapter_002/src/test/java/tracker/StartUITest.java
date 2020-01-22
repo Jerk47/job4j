@@ -28,8 +28,6 @@ public class StartUITest {
         public String toString() {
             return out.toString();
         }
-
-
     };
 
     private static final String MENU = "Menu:"
@@ -88,60 +86,4 @@ public class StartUITest {
                 .toString();
         assertThat(this.output.toString(), is(result));
     }
-
-//    @Test
-//    public void whenDeleteItemThenTrackerDoesNotHaveItem() throws Exception {
-//        Input input = new StubInput(new String[]{"3", item.getId(), "y"});
-//        new StartUI(input, tracker, output).init();
-//        String result = new StringBuilder()
-//                .append(MENU)
-//                .append(System.lineSeparator())
-//                .append("Заявка успешно удалена.")
-//                .append(System.lineSeparator())
-//                .toString();
-//        assertThat(this.output.toString(), is(result));
-//    }
-
-//    @Test
-//    public void whenSearchItemByIdThenTrackerShowSameItemId() throws Exception {
-//
-//        Input input = new StubInput(new String[]{"4", item.getId(), "6"});
-//        new StartUI(input, tracker, output).init();
-//        String result = new StringBuilder()
-//                .append(MENU)
-//                .append(System.lineSeparator())
-//                .append(item.getName())
-//                .append(System.lineSeparator())
-//                .toString();
-//        assertThat(this.output.toString(), is(result));
-//    }
-//
-//    @Test
-//    public void whenSearchItemByNameThenTrackerShowSameItem() throws Exception {
-//        Input input = new StubInput(new String[]{"5", item.getName(), "6"});
-//        new StartUI(input, tracker, output).init();
-//        String result = new StringBuilder()
-//                .append(MENU)
-//                .append(System.lineSeparator())
-//                .append("[test name]")
-//                .append(System.lineSeparator())
-//                .toString();
-//        assertThat(this.output.toString(), is(result));
-//    }
-//
-//    @Test
-//    public void whenAddTwoItemsThenShowTwoItems() throws Exception {
-//        Item item2 = new Item("Name 2", "desc", 123L);
-//        tracker.add(item2);
-//        Input input = new StubInput(new String[]{"1", "6"});
-//        new StartUI(input, tracker, output).init();
-//        String result = new StringBuilder()
-//                .append(MENU)
-//                .append(System.lineSeparator())
-//                .append("test name")
-//                .append(System.lineSeparator())
-//                .append(item2.getName())
-//                .append(System.lineSeparator())
-//                .toString();
-//        assertThat(this.output.toString(), is(result));
 }
