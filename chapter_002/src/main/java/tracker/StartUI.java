@@ -14,7 +14,7 @@ public class StartUI {
         this.output = output;
     }
 
-    public void init() {
+    public void init() throws Exception {
         MenuTracker menu = new MenuTracker(this.input, this.tracker, output);
         menu.fillActions();
         int[] ranges = new int[menu.getActionsLentgh()];
@@ -23,15 +23,11 @@ public class StartUI {
         }
         do {
             menu.show();
-            try {
-                menu.select(input.ask("select: ", ranges));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            menu.select(input.ask("select: ", ranges));
         } while (!"y".equals(this.input.ask("Exit?(y): ")));
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         new StartUI(new ValidateInput(new ConsoleInput()), new Tracker(), System.out::println).init();
     }
 }
