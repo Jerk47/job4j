@@ -3,9 +3,6 @@ package tracker;
 public class TrackerSingleStaticField {
     private static TrackerSingleStaticField instance;
 
-    /*
-     fields of class tracker should be here
-    */
     private TrackerSingleStaticField() {
     }
 
@@ -15,8 +12,4 @@ public class TrackerSingleStaticField {
         }
         return instance;
     }
-
-    /*
-    methods of class tracker should be here
-    */
 }
