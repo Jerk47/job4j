@@ -44,7 +44,7 @@ public class MenuTracker {
 
     public void show() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i <= 6; i++) {
+        for (int i = 0; i < getActionsLentgh(); i++) {
             sb.append(this.actions.get(i).info() + '\n');
         }
         output.accept(sb.toString());
