@@ -6,16 +6,31 @@ public class MatrixIterator implements Iterator {
 
     private final int[][] values;
     private int index = 0;
+    private int secondIndex = 0;
+    private int count = 0;
 
     public MatrixIterator(final int[][] values) {
         this.values = values;
     }
 
     public boolean hasNext() {
-        return values.length > index;
+        return count < getNumbersElements(values);
     }
 
     public Object next() {
-        return  values[index++];
+        if (secondIndex >= values[index].length) {
+            index++;
+            secondIndex = 0;
+        }
+        count++;
+        return values[index][secondIndex++];
+    }
+
+    private int getNumbersElements(int[][] array) {
+        int result = 0;
+        for (int[] i : array) {
+            result += i.length;
+        }
+        return result;
     }
 }
