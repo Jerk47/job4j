@@ -1,36 +1,36 @@
 package iterator;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class MatrixIterator implements Iterator {
 
     private final int[][] values;
-    private int index = 0;
-    private int secondIndex = 0;
-    private int count = 0;
+    private int indexRow = 0;
+    private int indexColumn = 0;
 
     public MatrixIterator(final int[][] values) {
         this.values = values;
     }
 
     public boolean hasNext() {
-        return count < getNumbersElements(values);
+        if (indexRow >= values.length) {
+            return false;
+        }
+        if (indexColumn >= values[indexRow].length && indexRow == values.length - 1) {
+            return false;
+        }
+        return true;
     }
 
     public Object next() {
-        if (secondIndex >= values[index].length) {
-            index++;
-            secondIndex = 0;
+        if (!hasNext()) {
+            throw new NoSuchElementException();
         }
-        count++;
-        return values[index][secondIndex++];
-    }
-
-    private int getNumbersElements(int[][] array) {
-        int result = 0;
-        for (int[] i : array) {
-            result += i.length;
+        if (indexColumn >= values[indexRow].length) {
+            indexColumn = 0;
+            indexRow++;
         }
-        return result;
+        return values[indexRow][indexColumn++];
     }
 }
